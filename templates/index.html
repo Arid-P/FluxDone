@@ -1,0 +1,269 @@
+<!DOCTYPE html>content://com.android.externalstorage.documents/tree/primary%3APrograming::primary:
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FluxDone - Task Management</title>
+    <link rel="stylesheet" href="Programing/FluxDone/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar (Desktop) -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-check-circle"></i>
+                <span>FluxDone</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <!-- Smart Lists -->
+            <div class="nav-section">
+                <h3 class="section-title">Smart Lists</h3>
+                <ul class="nav-list">
+                    <li class="nav-item active" data-list="inbox">
+                        <i class="fas fa-inbox"></i>
+                        <span>Inbox</span>
+                        <span class="badge" id="inbox-count">0</span>
+                    </li>
+                    <li class="nav-item" data-list="today">
+                        <i class="fas fa-calendar-day"></i>
+                        <span>Today</span>
+                        <span class="badge" id="today-count">0</span>
+                    </li>
+                    <li class="nav-item" data-list="next7days">
+                        <i class="fas fa-calendar-week"></i>
+                        <span>Next 7 Days</span>
+                        <span class="badge" id="week-count">0</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Lists Section -->
+            <div class="nav-section">
+                <div class="section-header">
+                    <h3 class="section-title">Lists</h3>
+                    <button class="btn-icon" id="add-list-btn" title="Add List">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <ul class="nav-list" id="custom-lists">
+                    <li class="nav-item" data-list="personal">
+                        <i class="fas fa-folder" style="color: #5EB1FF;"></i>
+                        <span>Personal</span>
+                        <span class="badge">3</span>
+                    </li>
+                    <li class="nav-item" data-list="work">
+                        <i class="fas fa-folder" style="color: #FAA05A;"></i>
+                        <span>Work</span>
+                        <span class="badge">5</span>
+                    </li>
+                    <li class="nav-item" data-list="shopping">
+                        <i class="fas fa-folder" style="color: #FF5E5E;"></i>
+                        <span>Shopping</span>
+                        <span class="badge">2</span>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- User Profile -->
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span class="username">User</span>
+                <button class="btn-icon settings-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="content-header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="list-title" id="current-list-title">Inbox</h1>
+            </div>
+            <div class="header-right">
+                <button class="btn-sort" id="sort-btn">
+                    <i class="fas fa-sort-amount-down"></i>
+                    <span>Sort</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Add Task Input (Desktop) -->
+        <div class="add-task-container desktop-only">
+            <div class="add-task-input-wrapper">
+                <i class="fas fa-plus"></i>
+                <input 
+                    type="text" 
+                    id="task-input" 
+                    placeholder="Add a task..." 
+                    autocomplete="off"
+                >
+                <div class="task-actions">
+                    <button class="action-btn" id="set-date-btn" title="Set Date">
+                        <i class="fas fa-calendar"></i>
+                    </button>
+                    <button class="action-btn" id="set-priority-btn" title="Set Priority">
+                        <i class="fas fa-flag"></i>
+                    </button>
+                    <button class="action-btn" id="set-list-btn" title="Set List">
+                        <i class="fas fa-folder"></i>
+                    </button>
+                </div>
+            </div>
+            <button class="btn-add" id="add-task-btn">Add</button>
+        </div>
+
+        <!-- Task List -->
+        <div class="task-list-container">
+            <ul class="task-list" id="task-list">
+                <!-- Tasks will be dynamically inserted here -->
+            </ul>
+            
+            <!-- Empty State -->
+            <div class="empty-state" id="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h3>All caught up!</h3>
+                <p>You have no tasks in this list.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav mobile-only" id="bottom-nav">
+        <button class="nav-btn active" data-list="inbox">
+            <i class="fas fa-inbox"></i>
+            <span>Inbox</span>
+        </button>
+        <button class="nav-btn" data-list="today">
+            <i class="fas fa-calendar-day"></i>
+            <span>Today</span>
+        </button>
+        <div class="nav-spacer"></div>
+        <button class="nav-btn" data-list="next7days">
+            <i class="fas fa-calendar-week"></i>
+            <span>Week</span>
+        </button>
+        <button class="nav-btn" data-list="lists">
+            <i class="fas fa-folder"></i>
+            <span>Lists</span>
+        </button>
+    </nav>
+
+    <!-- Floating Action Button (Mobile) -->
+    <button class="fab mobile-only" id="fab-add-task">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <!-- Add Task Modal (Mobile) -->
+    <div class="modal" id="add-task-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Task</h3>
+                <button class="btn-close" id="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input 
+                    type="text" 
+                    id="modal-task-input" 
+                    placeholder="What needs to be done?"
+                    autocomplete="off"
+                >
+                <div class="modal-actions">
+                    <button class="modal-action-btn" id="modal-date-btn">
+                        <i class="fas fa-calendar"></i>
+                        <span>Date</span>
+                    </button>
+                    <button class="modal-action-btn" id="modal-priority-btn">
+                        <i class="fas fa-flag"></i>
+                        <span>Priority</span>
+                    </button>
+                    <button class="modal-action-btn" id="modal-list-btn">
+                        <i class="fas fa-folder"></i>
+                        <span>List</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancel-task">Cancel</button>
+                <button class="btn-save" id="save-task">Add Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Priority Selector Modal -->
+    <div class="modal" id="priority-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content priority-modal-content">
+            <div class="modal-header">
+                <h3>Select Priority</h3>
+                <button class="btn-close" id="close-priority-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button class="priority-option priority-1" data-priority="1">
+                    <span class="priority-bar-preview priority-1-bar"></span>
+                    <span class="priority-label">High Priority</span>
+                </button>
+                <button class="priority-option priority-2" data-priority="2">
+                    <span class="priority-bar-preview priority-2-bar"></span>
+                    <span class="priority-label">Medium Priority</span>
+                </button>
+                <button class="priority-option priority-3" data-priority="3">
+                    <span class="priority-bar-preview priority-3-bar"></span>
+                    <span class="priority-label">Low Priority</span>
+                </button>
+                <button class="priority-option priority-4" data-priority="4">
+                    <span class="priority-bar-preview priority-4-bar"></span>
+                    <span class="priority-label">No Priority</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sort Menu -->
+    <div class="dropdown-menu" id="sort-menu">
+        <button class="dropdown-item" data-sort="custom">
+            <i class="fas fa-th-large"></i>
+            <span>Custom</span>
+        </button>
+        <button class="dropdown-item" data-sort="priority">
+            <i class="fas fa-flag"></i>
+            <span>Priority</span>
+        </button>
+        <button class="dropdown-item" data-sort="due-date">
+            <i class="fas fa-calendar"></i>
+            <span>Due Date</span>
+        </button>
+        <button class="dropdown-item" data-sort="title">
+            <i class="fas fa-font"></i>
+            <span>Title</span>
+        </button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Task added successfully</span>
+    </div>
+
+    <script src="static/js/script.js"></script>
+</body>
+</html>
